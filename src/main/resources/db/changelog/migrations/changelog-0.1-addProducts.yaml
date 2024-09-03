@@ -4,19 +4,15 @@ databaseChangeLog:
       id: 001_add_products
       author: ikovalev
       changes:
-        - loadData:
+        - createTable:
+            tableName: products
             columns:
               - column:
-                  index: 1
                   name: id
+                  type: varchar(100)
               - column:
-                  index: 2
                   name: type
+                  type: varchar(100)
               - column:
-                  index: 3
                   name: name
-            tableName: products
-            encoding: UTF-8
-            separator: ','
-            quotchar: '"'
-            file:  "db/changelog/csv/products.csv"
+                  type: varchar(100)
