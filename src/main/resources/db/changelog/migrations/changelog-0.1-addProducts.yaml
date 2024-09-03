@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/migrations/changelog-0.1-addProducts.yaml
+  - changeSet:
+      id: 001_add_products
+      author: ikovalev
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  index: 1
+                  name: id
+              - column:
+                  index: 2
+                  name: type
+              - column:
+                  index: 3
+                  name: name
+            tableName: products
+            encoding: UTF-8
+            separator: ','
+            quotchar: '"'
+            file:  "db/changelog/csv/products.csv"
