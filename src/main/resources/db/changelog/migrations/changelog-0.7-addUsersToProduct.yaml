@@ -1,26 +1,27 @@
 databaseChangeLog:
-  - logicalFilePath: db/changelog/migrations/changelog-0.5-addUsers.yaml
+  - logicalFilePath: db/changelog/migrations/changelog-0.5-addUsersToProduct.yaml
   - changeSet:
-      id: 005_add_users
+      id: 005_add_users_to_product
       author: ikovalev
       changes:
         - createTable:
-            tableName: userbase
+            tableName: users_to_product
             columns:
               - column:
-                  name: id
-                  type: varchar(100)
-              - column:
-                  name: registrationDate
-                  type: timestamp with time zone
-                  constraints:
-                    nullable: false
-              - column:
-                  name: username
+                  name: user_id
                   type: varchar(255)
               - column:
-                  name: firstName
+                  name: product_id
                   type: varchar(255)
-              - column:
-                  name: lastName
-                  type: varchar(255)
+        - addForeignKeyConstraint:
+            baseTableName: users_to_product
+            baseColumnNames: user_id
+            constraintName: fk_users_to_product_users
+            referencedTableName: userbase
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: users_to_product
+            baseColumnNames: product_id
+            constraintName: fk_users_to_product_products
+            referencedTableName: products
+            referencedColumnNames: id

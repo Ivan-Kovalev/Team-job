@@ -1,27 +1,19 @@
 databaseChangeLog:
-  - logicalFilePath: db/changelog/migrations/changelog-0.6-importToUsers.yaml
+  - logicalFilePath: db/changelog/migrations/changelog-0.6-importToUsersToProduct.yaml
   - changeSet:
-      id: 006_import_to_users
+      id: 006_import_to_users_to_product
       author: ikovalev
       changes:
         - loadData:
-            tableName: userbase
+            tableName: users_to_product
             encoding: UTF-8
-            file: "db/changelog/csv/users.csv"
+            file: "db/changelog/csv/user_to_product.csv"
             columns:
               - column:
                   index: 1
-                  name: id
+                  name: user_id
               - column:
                   index: 2
-                  name: registrationDate
-              - column:
-                  index: 3
-                  name: username
-              - column:
-                  index: 4
-                  name: firstName
-              - column:
-                  index: 5
-                  name: lastName
+                  name: product_id
+
 

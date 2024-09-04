@@ -1,25 +1,27 @@
 databaseChangeLog:
-  - logicalFilePath: db/changelog/migrations/changelog-0.3-addTransactions.yaml
+  - logicalFilePath: db/changelog/migrations/changelog-0.6-importToTransactions.yaml
   - changeSet:
-      id: 003_add_transactions
+      id: 006_import_to_transactions
       author: ikovalev
       changes:
-        - createTable:
+        - loadData:
             tableName: transactions
+            encoding: UTF-8
+            file: "db/changelog/csv/transactions.csv"
             columns:
               - column:
+                  index: 1
                   name: id
-                  type: varchar(100)
               - column:
+                  index: 2
                   name: type
-                  type: varchar(100)
               - column:
+                  index: 3
                   name: user_id
-                  type: varchar(255)
               - column:
+                  index: 4
                   name: product_id
-                  type: varchar(255)
               - column:
+                  index: 5
                   name: amount
-                  type: integer
 
