@@ -6,9 +6,7 @@ import pro.sky.TeamJob.model.Product;
 import pro.sky.TeamJob.model.Recommendation;
 import pro.sky.TeamJob.repository.RecommendationRepository;
 import pro.sky.TeamJob.service.RecommendationService;
-import pro.sky.TeamJob.utils.TeamJobUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static pro.sky.TeamJob.utils.TeamJobUtils.*;
