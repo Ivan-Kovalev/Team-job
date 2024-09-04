@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/migrations/changelog-0.3-addTransactions.yaml
+  - changeSet:
+      id: 003_add_transactions
+      author: ikovalev
+      changes:
+        - createTable:
+            tableName: transactions
+            columns:
+              - column:
+                  name: id
+                  type: varchar(100)
+              - column:
+                  name: type
+                  type: varchar(100)
+              - column:
+                  name: user_id
+                  type: varchar(255)
+              - column:
+                  name: product_id
+                  type: varchar(255)
+              - column:
+                  name: amount
+                  type: integer
+

@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/migrations/changelog-0.5-addUsers.yaml
+  - changeSet:
+      id: 005_add_users
+      author: ikovalev
+      changes:
+        - createTable:
+            tableName: userbase
+            columns:
+              - column:
+                  name: id
+                  type: varchar(100)
+              - column:
+                  name: registrationDate
+                  type: timestamp with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(255)
+              - column:
+                  name: firstName
+                  type: varchar(255)
+              - column:
+                  name: lastName
+                  type: varchar(255)
