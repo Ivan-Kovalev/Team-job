@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/migrations/changelog-0.6-importToTransactions.yaml
+  - changeSet:
+      id: 006_import_to_transactions
+      author: ikovalev
+      changes:
+        - loadData:
+            tableName: transactions
+            encoding: UTF-8
+            file: "db/changelog/csv/transactions.csv"
+            columns:
+              - column:
+                  index: 1
+                  name: id
+              - column:
+                  index: 2
+                  name: type
+              - column:
+                  index: 3
+                  name: user_id
+              - column:
+                  index: 4
+                  name: product_id
+              - column:
+                  index: 5
+                  name: amount
+

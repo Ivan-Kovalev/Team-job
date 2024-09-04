@@ -17,10 +17,8 @@ public class Transaction {
     @Id
     private String id;
     private String type;
-    @Column(name = "user_id")
     @OneToOne
     private User userId;
-    @Column(name = "product_id")
     @OneToOne
     private Product productId;
     private Long amount;
