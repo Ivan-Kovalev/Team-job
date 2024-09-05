@@ -6,24 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+import java.util.List;
+
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "recommendation")
 public class Recommendation {
 
-    @Id
+    private String name;
     private String id;
-    @OneToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-    private String descriptionProduct;
-
-    public Recommendation(Product product, String descriptionProduct) {
-        this.product = product;
-        this.descriptionProduct = descriptionProduct;
-    }
+    private String text;
 
 }

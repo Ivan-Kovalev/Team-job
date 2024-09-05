@@ -14,7 +14,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: registrationDate
+                  name: registration_date
                   type: timestamp with time zone
                   constraints:
                     nullable: false
@@ -22,8 +22,8 @@ databaseChangeLog:
                   name: username
                   type: varchar(255)
               - column:
-                  name: firstName
+                  name: firstname
                   type: varchar(255)
               - column:
-                  name: lastName
+                  name: lastname
                   type: varchar(255)
