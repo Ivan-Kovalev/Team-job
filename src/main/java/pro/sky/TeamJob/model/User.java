@@ -7,22 +7,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "userbase")
 public class User {
 
     @Id
     private String id;
+    @Column(name = "registration_date")
     private LocalDateTime registrationDate;
     private String username;
-    private String firstName;
-    private String lastName;
-    @ManyToMany
-    private List<Product> products;
+    private String firstname;
+    private String lastname;
 }
