@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pro.sky.TeamJob.model.Recommendation;
-import pro.sky.TeamJob.model.User;
+import pro.sky.TeamJob.dto.Recommendation;
 import pro.sky.TeamJob.service.RecommendationService;
 
 import java.util.List;

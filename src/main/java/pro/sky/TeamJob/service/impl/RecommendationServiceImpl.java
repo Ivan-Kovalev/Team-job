@@ -2,7 +2,7 @@ package pro.sky.TeamJob.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pro.sky.TeamJob.model.Recommendation;
+import pro.sky.TeamJob.dto.Recommendation;
 import pro.sky.TeamJob.model.User;
 import pro.sky.TeamJob.repository.ProductRepository;
 import pro.sky.TeamJob.repository.UserRepository;
