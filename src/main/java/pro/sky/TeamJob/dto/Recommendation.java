@@ -18,4 +18,10 @@ public class Recommendation {
     private String id;
     private String text;
 
+    @Override
+    public String toString() {
+        return "Рекомендация: " + name + "\n"
+                + text + "\n"
+                + "Id продукта: " + id + "\n";
+    }
 }
