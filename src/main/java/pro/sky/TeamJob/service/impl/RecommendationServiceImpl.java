@@ -16,7 +16,6 @@ import java.util.List;
 public class RecommendationServiceImpl implements RecommendationService {
 
     private final UserRepository userRepository;
-    private final ProductRepository productRepository;
 
     @Override
     public List<Recommendation> getRecommendationProduct(String userId) {
