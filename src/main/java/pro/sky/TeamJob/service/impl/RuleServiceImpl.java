@@ -27,28 +27,24 @@ public class RuleServiceImpl implements RuleService {
         boolean isCompileAllRequires = true;
         for (QueryEntity queryEntity: queryEntities) {
             switch (queryEntity.getQuery()) {
-                case TopUp:
-                    if(userRepository.findUsersThenTotUp().stream().noneMatch(user -> user.getId().equals(userUUID))) {
-                        System.out.println("НЕ ПОДХОДИТ ПО TopUp");
+                case Topup:
+                    if(userRepository.findTopup(queryEntity.getArguments()[0], Long.getLong(queryEntity.getArguments()[1])).stream().noneMatch(user -> user.getId().equals(userUUID))) {
                         isCompileAllRequires = false;
                     };
                 case UserOf:
-                     if(userRepository.findUsersThenUserOf().stream().noneMatch(user -> user.getId().equals(userUUID))) {
-                         System.out.println("НЕ ПОДХОДИТ ПО UserOf");
+                     if(userRepository.findUserOf(queryEntity.getArguments()[0]).stream().noneMatch(user -> user.getId().equals(userUUID))) {
                          isCompileAllRequires = false;
                 };
                 case SpendSGT:
                      if(userRepository.findUsersThenSpendSGT().stream().noneMatch(user -> user.getId().equals(userUUID))) {
-                         System.out.println("НЕ ПОДХОДИТ ПО SpendSGT");
                          isCompileAllRequires = false;
                      }
                 case TopupSGT:
                     if(userRepository.findUsersThenTopupSGT().stream().noneMatch(user -> user.getId().equals(userUUID))) {
-                        System.out.println("НЕ ПОДХОДИТ ПО TopupSGT");
                         isCompileAllRequires = false;
                     }
                 case NotUserOf:
-                    if(userRepository.findUsersThenNotUserOf().stream().noneMatch(user -> user.getId().equals(userUUID))){
+                    if(userRepository.findNotUserOf(queryEntity.getArguments()[0]).stream().noneMatch(user -> user.getId().equals(userUUID))){
                         System.out.println("НЕ ПОДХОДИТ ПО NotUserOf");
                         isCompileAllRequires = false;
                     }
