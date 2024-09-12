@@ -1,8 +1,9 @@
 package pro.sky.TeamJob.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.TeamJob.dto.RecommendationDTO;
@@ -13,16 +14,17 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/recommendation")
 public class RecommendationController {
 
     private RecommendationService recommendationService;
 
-    @GetMapping()
-    public RecommendationDTO getRecommendationForUserId(@RequestParam UUID userId, @RequestParam Rule rule) {
+    @GetMapping("/recommendations")
+    public ResponseEntity<RecommendationDTO> getRecommendationForUserId(@RequestParam(value = "userId") UUID userId,
+                                                                        @RequestBody(required = false) Rule rule) {
+
         if (recommendationService.userMatchesTheRule(userId, rule)) {
-            return new RecommendationDTO(rule.getProductType(), rule.getRecommendationDescription());
+            return ResponseEntity.ok(new RecommendationDTO(rule.getProductType(), rule.getRecommendationDescription()));
         }
-        return new RecommendationDTO("Нет продукта", "Пользователю не подходит продукт");
+        return ResponseEntity.ok(new RecommendationDTO("Нет подходящего продукта", "Пользователю не подходит продукт"));
     }
 }

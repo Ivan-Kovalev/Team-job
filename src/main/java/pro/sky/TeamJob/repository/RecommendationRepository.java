@@ -1,13 +1,15 @@
 package pro.sky.TeamJob.repository;
 
-import org.hibernate.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import pro.sky.TeamJob.model.Rule;
 
 import java.util.UUID;
 
-public interface RecommendationRepository extends JpaRepository<String, Transaction> {
+@Repository
+public interface RecommendationRepository extends JpaRepository<Rule, UUID> {
 
     @Query(value = "SELECT EXISTS(" +
             "       SELECT * FROM users_to_product utp" +
