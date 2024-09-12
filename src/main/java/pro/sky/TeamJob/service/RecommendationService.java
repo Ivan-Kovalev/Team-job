@@ -1,10 +1,9 @@
 package pro.sky.TeamJob.service;
 
-import pro.sky.TeamJob.model.Recommendation;
+import pro.sky.TeamJob.model.Rule;
 
-import java.util.List;
-
+import java.util.UUID;
 
 public interface RecommendationService {
-    List<Recommendation> getRecommendationProduct(String userId);
+    boolean userMatchesTheRule(UUID userId, Rule rule);
 }

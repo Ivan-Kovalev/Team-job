@@ -1,35 +1,28 @@
 package pro.sky.TeamJob.controller;
 
-import liquibase.util.Validate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import pro.sky.TeamJob.exception.UuidIsNotValidException;
-import pro.sky.TeamJob.model.Recommendation;
-import pro.sky.TeamJob.model.User;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import pro.sky.TeamJob.dto.RecommendationDTO;
+import pro.sky.TeamJob.model.Rule;
 import pro.sky.TeamJob.service.RecommendationService;
-import pro.sky.TeamJob.utils.Validator;
 
-import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/recommendation/")
 @RequiredArgsConstructor
+@RequestMapping(path = "/recommendation")
 public class RecommendationController {
-    private final RecommendationService recommendationService;
 
-    @GetMapping(path = "{userId}")
-    public ResponseEntity<List<Recommendation>> getRecommendationProduct(@PathVariable String userId) {
-        if(!Validator.isValidUUID(userId)) {
-           throw new UuidIsNotValidException("Ошибка! Невалидный ID пользователя!");
+    private RecommendationService recommendationService;
+
+    @GetMapping()
+    public RecommendationDTO getRecommendationForUserId(@RequestParam UUID userId, @RequestParam Rule rule) {
+        if (recommendationService.userMatchesTheRule(userId, rule)) {
+            return new RecommendationDTO(rule.getProductType(), rule.getRecommendationDescription());
         }
-        return ResponseEntity.ok().body(recommendationService.getRecommendationProduct(userId));
-    }
-
-    @ExceptionHandler(UuidIsNotValidException.class)
-    private ResponseEntity<String> handler(UuidIsNotValidException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
+        return new RecommendationDTO("Нет продукта", "Пользователю не подходит продукт");
     }
 }
