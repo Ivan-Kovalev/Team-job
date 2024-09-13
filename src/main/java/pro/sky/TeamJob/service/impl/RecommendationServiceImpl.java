@@ -60,7 +60,7 @@ public class RecommendationServiceImpl implements RecommendationService {
                 case "spendSGT":
                     if (recommendationRepository.isSpendSGT(
                             userId,
-                            queriesAndProductType.getProductType()) > queriesAndProductType.getArgument()) {
+                            queriesAndProductType.getProductType()) < queriesAndProductType.getArgument()) {
                         userMatchesTheRule = false;
                         break;
                     }
@@ -68,7 +68,7 @@ public class RecommendationServiceImpl implements RecommendationService {
                 case "topUpSGT":
                     if (recommendationRepository.isTopUpSGT(
                             userId,
-                            queriesAndProductType.getProductType()) > queriesAndProductType.getArgument()) {
+                            queriesAndProductType.getProductType()) < queriesAndProductType.getArgument()) {
                         userMatchesTheRule = false;
                         break;
                     }
