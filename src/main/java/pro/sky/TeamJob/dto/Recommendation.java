@@ -1,4 +1,4 @@
-package pro.sky.TeamJob.model;
+package pro.sky.TeamJob.dto;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,13 +15,11 @@ import java.util.List;
 public class Recommendation {
 
     private String name;
-    private String id;
     private String text;
 
     @Override
     public String toString() {
         return "Рекомендация: " + name + "\n"
-                + text + "\n"
-                + "Id продукта: " + id + "\n";
+                + text;
     }
 }

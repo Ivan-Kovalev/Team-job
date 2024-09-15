@@ -1,6 +1,6 @@
 package pro.sky.TeamJob.service;
 
-import pro.sky.TeamJob.model.Recommendation;
+import pro.sky.TeamJob.dto.Recommendation;
 
 import java.util.List;
 

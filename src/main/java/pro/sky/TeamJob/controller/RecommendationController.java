@@ -1,14 +1,11 @@
 package pro.sky.TeamJob.controller;
 
-import liquibase.util.Validate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import pro.sky.TeamJob.dto.Recommendation;
 import pro.sky.TeamJob.exception.UuidIsNotValidException;
-import pro.sky.TeamJob.model.Recommendation;
-import pro.sky.TeamJob.model.User;
+import pro.sky.TeamJob.model.RuleEntity;
 import pro.sky.TeamJob.service.RecommendationService;
 import pro.sky.TeamJob.utils.Validator;
 
