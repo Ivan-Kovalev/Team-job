@@ -34,13 +34,13 @@ public class RuleStringParserUtils {
 
     public boolean validateArguments(Queries ruleName, String[] arguments) {
         switch (ruleName) {
-            case UserOf -> userOfArgumentsValidate(arguments);
-            case NotUserOf -> notUserOfArgumentsValidate(arguments);
-            case Topup -> totupArgumentsValidate(arguments);
-            case TopUpGTSpend -> topUpGTSpendValidate(arguments);
-            case SpendSGT -> spendSGTArgumentsValidate(arguments);
-            case TopupSGT -> topupSGTArgumentsValidate(arguments);
-            case ActiveUserOf -> activeUserOfArgumentsValidate(arguments);
+            case USEROF -> userOfArgumentsValidate(arguments);
+            case NOTUSEROF -> notUserOfArgumentsValidate(arguments);
+            case TOPUP -> totupArgumentsValidate(arguments);
+            case TOPUPGTSPEND -> topUpGTSpendValidate(arguments);
+            case SPENDSGT -> spendSGTArgumentsValidate(arguments);
+            case TOPUPSGT -> topupSGTArgumentsValidate(arguments);
+            case ACTIVEUSEROF -> activeUserOfArgumentsValidate(arguments);
         }
         return true;
     }

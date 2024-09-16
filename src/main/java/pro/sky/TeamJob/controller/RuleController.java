@@ -16,6 +16,7 @@ public class RuleController {
 
     @PostMapping
     public ResponseEntity addRecommendation(@RequestBody RuleEntity rule) {
+        rule.setRule(rule.getRule().toUpperCase());
         ruleService.createRule(rule);
         return ResponseEntity.ok().body("Your rule has been added");
     }
