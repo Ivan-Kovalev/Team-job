@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import pro.sky.TeamJob.model.User;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -75,5 +76,7 @@ public interface UserRepository extends JpaRepository<User, String> {
             "        GROUP BY p.id, p.name" +
             "        HAVING COUNT(*) > 10 LIMIT 1)", nativeQuery = true)
     boolean findUsersThenActiveUserOf(@Param("userId") String userId, @Param("productType") String productType);
+
+    Optional<User> findUserByUsername(String username);
 
 }
