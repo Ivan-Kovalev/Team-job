@@ -37,19 +37,41 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
         updates.forEach(update -> {
             String messageText = update.message().text();
             logger.info("Processing update: {}", update);
-            SendMessage message = null;
-            if(!Validator.isValidUUID(messageText)) {
-                message = new SendMessage(update.message().chat().id(), "Ошибка! Невалидный ID");
+            SendMessage message;
+            if(messageText.equals("/start")) {
+                message = new SendMessage(update.message().chat().id(), "Добро пожаловать в TJ банк. " +
+                        "Я ваш персональный ассистент по подбору и созданию рекомендаций.\n\n" +
+                        "Для взаимодействия со мной вы можете использовать следующие команды:\n" +
+                        "/recommend [USERNAME] - получить все рекомендации, доступные текущему пользователю с данным ID.\n" +
+                        "/start - прослушать данное сообщение еще раз. Если очень хочется.");
                 telegramBot.execute(message);
-                return;
+            } else if(messageText.startsWith("/recommend")) {
+                String[] commandAndArguments = messageText.split(" ");
+                if (commandAndArguments.length != 2) {
+                    message = new SendMessage(update.message().chat().id(), "Ошибка! В запросе должен быть только 1 аргумент (Username пользователя)");
+                } else {
+                    String userId = recommendationService.getUserIdByUsername(commandAndArguments[1]);
+                    String userFirstnameAndLastname = recommendationService.getFirstnameAndLastnameByUsername(commandAndArguments[1]);
+                    List<Recommendation> recommendations = recommendationService.getRecommendationProduct(userId);
+                    if(recommendations.isEmpty()) {
+                        message = new SendMessage(update.message().chat().id(), "Здравствуйте " + userFirstnameAndLastname + ".\n" +
+                                "Для вас нет рекомендаций.");
+                    } else {
+                        StringBuilder userRecommendations = new StringBuilder();
+                        for (Recommendation recommendation: recommendations) {
+                            userRecommendations.append("Название продукта:\n ")
+                                    .append(recommendation.getName())
+                                    .append(".\n")
+                                    .append(recommendation.getText())
+                                    .append("\n\n");
+                        }
+                        message = new SendMessage(update.message().chat().id(), "Здравствуйте " + userFirstnameAndLastname + ".\n" +
+                                "Новые продукты для вас:\n\n" +
+                                userRecommendations);
+                    }
+                }
+                telegramBot.execute(message);
             }
-            List<Recommendation> recommendations = recommendationService.getRecommendationProduct(messageText);
-            if (recommendations.isEmpty()) {
-                message = new SendMessage(update.message().chat().id(), "Нет рекомендаций для текущего пользователя");
-            } else {
-                message = new SendMessage(update.message().chat().id(), recommendations.toString());
-            }
-            telegramBot.execute(message);
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }

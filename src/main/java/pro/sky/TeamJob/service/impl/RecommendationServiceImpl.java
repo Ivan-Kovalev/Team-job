@@ -3,8 +3,11 @@ package pro.sky.TeamJob.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pro.sky.TeamJob.dto.Recommendation;
+import pro.sky.TeamJob.exception.UsernameNotExistException;
 import pro.sky.TeamJob.model.RuleEntity;
+import pro.sky.TeamJob.model.User;
 import pro.sky.TeamJob.repository.RuleEntitiesRepository;
+import pro.sky.TeamJob.repository.UserRepository;
 import pro.sky.TeamJob.service.RecommendationService;
 
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     private final RuleEntitiesRepository ruleEntitiesRepository;
     private final RuleServiceImpl ruleService;
+    private final UserRepository userRepository;
 
     @Override
     public List<Recommendation> getRecommendationProduct(String userId) {
@@ -32,5 +36,17 @@ public class RecommendationServiceImpl implements RecommendationService {
         return recommendations;
     }
 
+    public User findUserIdByUsername(String username) {
+        return userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotExistException("Ошибка! Пользователя с указанным username не существует."));
+    }
+
+    public String getUserIdByUsername(String username) {
+        return findUserIdByUsername(username).getUsername();
+    }
+
+    public String getFirstnameAndLastnameByUsername(String username) {
+        User user = findUserIdByUsername(username);
+        return user.getFirstname() + " " + user.getLastname();
+    }
 
 }
