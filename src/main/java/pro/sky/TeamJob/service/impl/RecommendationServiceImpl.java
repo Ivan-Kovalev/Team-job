@@ -1,6 +1,9 @@
 package pro.sky.TeamJob.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import pro.sky.TeamJob.dto.Recommendation;
 import pro.sky.TeamJob.exception.UsernameNotExistException;
@@ -20,8 +23,10 @@ public class RecommendationServiceImpl implements RecommendationService {
     private final RuleEntitiesRepository ruleEntitiesRepository;
     private final RuleServiceImpl ruleService;
     private final UserRepository userRepository;
+    private final CacheManager cacheManager;
 
     @Override
+    @Cacheable("getRecommendation")
     public List<Recommendation> getRecommendationProduct(String userId) {
         List<RuleEntity> ruleEntities = ruleEntitiesRepository.findAll();
         List<Recommendation> recommendations = new ArrayList<>();
@@ -47,6 +52,11 @@ public class RecommendationServiceImpl implements RecommendationService {
     public String getFirstnameAndLastnameByUsername(String username) {
         User user = findUserIdByUsername(username);
         return user.getFirstname() + " " + user.getLastname();
+    }
+
+    @Override
+    public void clearCacheOfRecommendation() {
+        cacheManager.getCache("getRecommendation").clear();
     }
 
 }
