@@ -11,4 +11,5 @@ public interface RecommendationService {
     User findUserIdByUsername(String username);
     String getUserIdByUsername(String username);
     String getFirstnameAndLastnameByUsername(String username);
+    void clearCacheOfRecommendation();
 }
