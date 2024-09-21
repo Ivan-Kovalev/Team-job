@@ -13,6 +13,7 @@ import pro.sky.TeamJob.service.RuleService;
 import pro.sky.TeamJob.utils.RuleStringParserUtils;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,29 +23,25 @@ public class RuleServiceImpl implements RuleService {
     private final UserRepository userRepository;
 
     @Override
-    public boolean isRuleCompileAllRequireds(RuleEntity rule, String userUUID) {
+    public boolean isRuleCompileAllRequireds(RuleEntity rule, UUID userUUID) {
+        String userId = userUUID.toString();
         List<QueryEntity> queryEntities = RuleStringParserUtils.convertRuleStringToQueryEntitesList(rule.getRule());
         boolean isCompileAllRequires = true;
         for (QueryEntity queryEntity: queryEntities) {
             switch (queryEntity.getQuery()) {
-                case TOPUP -> isCompileAllRequires = userRepository.findTopup(userUUID, queryEntity.getArguments()[0], Long.getLong(queryEntity.getArguments()[1]));
-                case USEROF -> isCompileAllRequires = userRepository.findUserOf(userUUID, queryEntity.getArguments()[0]);
-                case NOTUSEROF -> isCompileAllRequires = userRepository.findNotUserOf(userUUID, queryEntity.getArguments()[0]);
-                case TOPUPGTSPEND -> isCompileAllRequires = userRepository.findUsersThenTopUpGTSpend(userUUID, queryEntity.getArguments()[0]);
-                case SPENDSGT -> isCompileAllRequires = userRepository.findUsersThenSpendSGT(userUUID, queryEntity.getArguments()[0]) > Long.getLong(queryEntity.getArguments()[1]);
-                case TOPUPSGT -> isCompileAllRequires = userRepository.findUsersThenTopupSGT(userUUID, queryEntity.getArguments()[0]) > Long.getLong(queryEntity.getArguments()[1]);
-                case ACTIVEUSEROF -> isCompileAllRequires = userRepository.findUsersThenActiveUserOf(userUUID, queryEntity.getArguments()[0]);
+                case TOPUP -> isCompileAllRequires = userRepository.findTopup(userId, queryEntity.getArguments()[0], Long.getLong(queryEntity.getArguments()[1]));
+                case USEROF -> isCompileAllRequires = userRepository.findUserOf(userId, queryEntity.getArguments()[0]);
+                case NOTUSEROF -> isCompileAllRequires = userRepository.findNotUserOf(userId, queryEntity.getArguments()[0]);
+                case TOPUPGTSPEND -> isCompileAllRequires = userRepository.findUsersThenTopUpGTSpend(userId, queryEntity.getArguments()[0]);
+                case SPENDSGT -> isCompileAllRequires = userRepository.findUsersThenSpendSGT(userId, queryEntity.getArguments()[0]) > Long.getLong(queryEntity.getArguments()[1]);
+                case TOPUPSGT -> isCompileAllRequires = userRepository.findUsersThenTopupSGT(userId, queryEntity.getArguments()[0]) > Long.getLong(queryEntity.getArguments()[1]);
+                case ACTIVEUSEROF -> isCompileAllRequires = userRepository.findUsersThenActiveUserOf(userId, queryEntity.getArguments()[0]);
             }
             if (!isCompileAllRequires) {
                 break;
             }
         }
         return isCompileAllRequires;
-    }
-
-    @Override
-    public boolean isRulesNameValid(Product product) {
-        return false;
     }
 
     @Override

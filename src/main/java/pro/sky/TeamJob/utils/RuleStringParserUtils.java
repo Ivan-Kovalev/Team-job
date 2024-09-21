@@ -48,14 +48,14 @@ public class RuleStringParserUtils {
     public void userOfArgumentsValidate(String[] arguments) throws IllegalArgumentException {
         if (Arrays.stream(arguments).count() == 1) {
         } else {
-            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила UserOf должно равняться 1");
+            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила USEROF должно равняться 1");
         }
     }
 
     public void notUserOfArgumentsValidate(String[] arguments) throws IllegalArgumentException {
         if (Arrays.stream(arguments).count() == 1) {
         } else {
-            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила NotUserOf должно равняться 1");
+            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила NOTUSEROF должно равняться 1");
         }
     }
 
@@ -64,27 +64,49 @@ public class RuleStringParserUtils {
             try {
                 Long.parseLong(arguments[1]);
             } catch (NumberFormatException e) {
-                throw new NumberFormatException("Ошибка! Второй переданный аргумент для правила Totup должен быть числом");
+                throw new NumberFormatException("Ошибка! Второй переданный аргумент для правила TOTUP должен быть числом");
             }
         } else {
-            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила NotUserOf должно равняться 1");
+            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила TOTUP должно равняться 1");
         }
     }
 
     public void topUpGTSpendValidate(String[] arguments) throws IllegalArgumentException {
-
+        if (Arrays.stream(arguments).count() == 1) {
+        } else {
+            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила TOPUPGTSPEND должно равняться 1");
+        }
     }
 
     public void spendSGTArgumentsValidate(String[] arguments) throws IllegalArgumentException {
-
+        if (Arrays.stream(arguments).count() == 1) {
+            try {
+                Long.parseLong(arguments[0]);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("Ошибка! Второй переданный аргумент для правила SPENDSGT должен быть числом");
+            }
+        } else {
+            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила SPENDSGT должно равняться 1");
+        }
     }
 
     public void topupSGTArgumentsValidate(String[] arguments) throws IllegalArgumentException {
-
+        if (Arrays.stream(arguments).count() == 1) {
+            try {
+                Long.parseLong(arguments[0]);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("Ошибка! Второй переданный аргумент для правила TOPUPSGT должен быть числом");
+            }
+        } else {
+            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила TOPUPSGT должно равняться 1");
+        }
     }
 
     public void activeUserOfArgumentsValidate(String[] arguments) throws IllegalArgumentException {
-
+        if (Arrays.stream(arguments).count() == 1) {
+        } else {
+            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила ACTIVEUSEROF должно равняться 1");
+        }
     }
 
 }

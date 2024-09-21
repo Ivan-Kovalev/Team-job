@@ -15,6 +15,7 @@ import pro.sky.TeamJob.service.RecommendationService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     @Cacheable("getRecommendation")
-    public List<Recommendation> getRecommendationProduct(String userId) {
+    public List<Recommendation> getRecommendationProduct(UUID userId) {
         List<RuleEntity> ruleEntities = ruleEntitiesRepository.findAll();
         List<Recommendation> recommendations = new ArrayList<>();
         if (ruleEntities.isEmpty()) {
@@ -46,7 +47,7 @@ public class RecommendationServiceImpl implements RecommendationService {
     }
 
     public String getUserIdByUsername(String username) {
-        return findUserIdByUsername(username).getUsername();
+        return findUserIdByUsername(username).getId();
     }
 
     public String getFirstnameAndLastnameByUsername(String username) {

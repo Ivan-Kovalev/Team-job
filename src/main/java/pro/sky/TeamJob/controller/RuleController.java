@@ -18,7 +18,7 @@ public class RuleController {
     public ResponseEntity addRecommendation(@RequestBody RuleEntity rule) {
         rule.setRule(rule.getRule().toUpperCase());
         ruleService.createRule(rule);
-        return ResponseEntity.ok().body("Your rule has been added");
+        return ResponseEntity.ok().body("Новый набор правил для рекоммендации был добавлен.");
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

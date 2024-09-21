@@ -5,11 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.TeamJob.dto.Recommendation;
 import pro.sky.TeamJob.exception.UuidIsNotValidException;
-import pro.sky.TeamJob.model.RuleEntity;
 import pro.sky.TeamJob.service.RecommendationService;
-import pro.sky.TeamJob.utils.Validator;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/recommendation/")
@@ -18,10 +17,7 @@ public class RecommendationController {
     private final RecommendationService recommendationService;
 
     @GetMapping(path = "{userId}")
-    public ResponseEntity<List<Recommendation>> getRecommendationProduct(@PathVariable String userId) {
-        if(!Validator.isValidUUID(userId)) {
-           throw new UuidIsNotValidException("Ошибка! Невалидный ID пользователя!");
-        }
+    public ResponseEntity<List<Recommendation>> getRecommendationProduct(@PathVariable UUID userId) {
         return ResponseEntity.ok().body(recommendationService.getRecommendationProduct(userId));
     }
 
