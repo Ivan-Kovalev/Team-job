@@ -66,7 +66,6 @@ public class RecommendCommand implements Command {
         return commandAndArguments.length == 2;
     }
 
-
 }
 
 
