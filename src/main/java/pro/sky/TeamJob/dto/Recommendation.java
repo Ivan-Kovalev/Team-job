@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,4 +23,5 @@ public class Recommendation {
         return "Рекомендация: " + name + "\n"
                 + text;
     }
+
 }

@@ -1,15 +1,15 @@
 package pro.sky.TeamJob.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode(exclude = {"description", "rule", "name"})
 @Table(name = "rule_entity")
+@AllArgsConstructor
+@NoArgsConstructor
 public class RuleEntity {
 
     @Id
