@@ -17,15 +17,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Сервис описывающий логику формирования рекомендаций для пользователя
+ * @author Daniil Topchiy & Ivan Kovalev
+ * @version 1.0
+ */
 @Service
 @RequiredArgsConstructor
 public class RecommendationServiceImpl implements RecommendationService {
 
+    /** Репозиторий правил с CRUD опреациями*/
     private final RuleEntitiesRepository ruleEntitiesRepository;
+
+    /** Сервис правил */
     private final RuleServiceImpl ruleService;
+
+    /** Репозиторий пользователей с методами проверки соответствия правилам */
     private final UserRepository userRepository;
+
+    /** Класс по работе с кэшем */
     private final CacheManager cacheManager;
 
+    /**
+     * Метод формирования рекомендаций для пользователя
+     * @param userId id пользователя
+     * @return список рекомендаций для пользователя
+     */
     @Override
     @Cacheable("getRecommendation")
     public List<Recommendation> getRecommendationProduct(UUID userId) {
@@ -42,19 +59,37 @@ public class RecommendationServiceImpl implements RecommendationService {
         return recommendations;
     }
 
+    /**
+     * Метод поиска пользователя по его логину
+     * @param username логин пользователя
+     * @return объект пользователя со всей информацией
+     */
     public User findUserIdByUsername(String username) {
         return userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotExistException("Ошибка! Пользователя с указанным username не существует."));
     }
 
+    /**
+     * Метод получения id пользователя по его логину
+     * @param username логин пользователя
+     * @return id пользователя в строковом представлении
+     */
     public String getUserIdByUsername(String username) {
         return findUserIdByUsername(username).getId();
     }
 
+    /**
+     * Метод получения имени и фамилии пользователя по его логину
+     * @param username логин пользователя
+     * @return имя и фамилию пользователя
+     */
     public String getFirstnameAndLastnameByUsername(String username) {
         User user = findUserIdByUsername(username);
         return user.getFirstname() + " " + user.getLastname();
     }
 
+    /**
+     * Метод очищения кэша
+     */
     @Override
     public void clearCacheOfRecommendation() {
         cacheManager.getCache("getRecommendation").clear();

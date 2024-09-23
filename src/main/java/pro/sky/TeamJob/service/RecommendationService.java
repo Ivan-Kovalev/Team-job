@@ -6,7 +6,11 @@ import pro.sky.TeamJob.model.User;
 import java.util.List;
 import java.util.UUID;
 
-
+/**
+ * Интерфейс с методами формирования рекомендаций для пользователя
+ * @author Daniil Topchiy & Ivan Kovalev
+ * @version 1.0
+ */
 public interface RecommendationService {
     List<Recommendation> getRecommendationProduct(UUID userId);
     User findUserIdByUsername(String username);

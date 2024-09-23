@@ -12,14 +12,27 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Сервис по обработке входящих обновлений из бота
+ * @author Daniil Topchiy & Ivan Kovalev
+ * @version 1.0
+ */
 @Service
 public class TelegramBotUpdatesListener implements UpdatesListener {
 
     private Logger logger = LoggerFactory.getLogger(TelegramBotUpdatesListener.class);
 
+    /** Объект телеграм-бота */
     private TelegramBot telegramBot;
+
+    /** Список команд */
     private final List<Command> commands;
 
+    /**
+     * Конструктор
+     * @param telegramBot объект телеграм-бота
+     * @param commands список команд
+     */
     public TelegramBotUpdatesListener(TelegramBot telegramBot, List<Command> commands) {
         this.telegramBot = telegramBot;
         this.commands = commands;
@@ -30,6 +43,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
         telegramBot.setUpdatesListener(this);
     }
 
+    /** Метод работы с обновлениями от бота */
     @Override
     public int process(List<Update> updates) {
         updates.forEach(update -> {
