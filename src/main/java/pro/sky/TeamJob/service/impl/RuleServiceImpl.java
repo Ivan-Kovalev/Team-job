@@ -15,13 +15,27 @@ import pro.sky.TeamJob.utils.RuleStringParserUtils;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Сервис описывающий логику создания и проверки пользователя на соответствие правилам
+ * @author Daniil Topchiy & Ivan Kovalev
+ * @version 1.0
+ */
 @Service
 @RequiredArgsConstructor
 public class RuleServiceImpl implements RuleService {
 
+    /** Репозиторий правил с CRUD опреациями */
     private final RuleEntitiesRepository ruleEntitiesRepository;
+
+    /** Репозиторий пользователей */
     private final UserRepository userRepository;
 
+    /**
+     * Метод проверки пользователя на соответствие условиям из заданных правил
+     * @param rule запрос из правил
+     * @param userUUID id пользователя
+     * @return true или false
+     */
     @Override
     public boolean isRuleCompileAllRequireds(RuleEntity rule, UUID userUUID) {
         String userId = userUUID.toString();
@@ -44,6 +58,10 @@ public class RuleServiceImpl implements RuleService {
         return isCompileAllRequires;
     }
 
+    /**
+     * Метод сохранения условий из правил в базу данных
+     * @param rule запрос из правил
+     */
     @Override
     public void createRule(RuleEntity rule) {
         RuleStringParserUtils.isRequestValid(rule.getRule());
