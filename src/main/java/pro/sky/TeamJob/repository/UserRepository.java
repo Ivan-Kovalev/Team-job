@@ -10,22 +10,45 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Класс репозиторий для работы с базой данных
+ * @author Daniil Topchiy & Ivan Kovalev
+ * @version 1.0
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
+    /**
+     * Метод проверяющий использование пользователем продукта определенного типа
+     * @param userId id пользователя
+     * @param productType тип продукта
+     * @return true или false
+     */
     @Query(value = "SELECT EXISTS(" +
             "       SELECT * FROM users_to_product utp" +
             "       LEFT JOIN products p ON p.id = utp.product_id" +
             "       WHERE utp.user_id = :userId AND p.type = :productType)", nativeQuery = true)
     boolean findUserOf(@Param("userId") String userId, @Param("productType") String productType);
 
+    /**
+     * Метод проверяющий отсутствие использования пользователем продукта определенного типа
+     * @param userId id пользователя
+     * @param productType тип продукта
+     * @return true или false
+     */
     @Query(value = "SELECT EXISTS(" +
             "       SELECT * FROM users_to_product utp" +
             "       LEFT JOIN products p ON p.id = utp.product_id" +
             "       WHERE utp.user_id = :userId AND p.type <> :productType)", nativeQuery = true)
     boolean findNotUserOf(@Param("userId") String userId, @Param("productType") String productType);
 
-
+    /**
+     * Метод проверки пополнения пользователем определенного типа продукта на указанную сумму
+     * @param userId id пользователя
+     * @param productType тип продукта
+     * @param queryAmount сумма пополнения для проверки
+     * @return true или false
+     */
     @Query(value = "SELECT EXISTS(" +
             "       SELECT FROM users_to_product utp" +
             "       LEFT JOIN products p ON p.id = utp.product_id" +
@@ -36,6 +59,12 @@ public interface UserRepository extends JpaRepository<User, String> {
             "       AND t.amount = :queryAmount)", nativeQuery = true)
     boolean findTopup(@Param("userId") String userId, @Param("productType") String productType, @Param("queryAmount") Long queryAmount);
 
+    /**
+     * Метод провряющий что сумма пополнений по продукту больше суммы трат по продукту определенного типа
+     * @param userId id пользователя
+     * @param productType тип продукта
+     * @return true или false
+     */
     @Query(value = "SELECT EXISTS(" +
             "        SELECT 1" +
             "        FROM products p" +
@@ -52,6 +81,12 @@ public interface UserRepository extends JpaRepository<User, String> {
             "        LIMIT 1)", nativeQuery = true)
     boolean findUsersThenTopUpGTSpend(@Param("userId") String userId, @Param("productType") String productType);
 
+    /**
+     * Метод возвращающий сумму списаний по продукту определенного типа
+     * @param userId id пользователя
+     * @param productType тип продукта
+     * @return сумма списаний по продукту
+     */
     @Query(value = "SELECT COUNT(amount) " +
             "       FROM transactions t" +
             "       LEFT JOIN products p ON p.id = t.product_id" +
@@ -60,6 +95,12 @@ public interface UserRepository extends JpaRepository<User, String> {
             "       AND p.type = :productType", nativeQuery = true)
     Long findUsersThenSpendSGT(@Param("userId") String userId, @Param("productType") String productType);
 
+    /**
+     * Метод возвращающий сумму пополнений по продукту определенного типа
+     * @param userId id пользователя
+     * @param productType тип продукта
+     * @return сумма пополнений по продукту
+     */
     @Query(value = "SELECT COUNT(amount) " +
             "       FROM transactions t" +
             "       LEFT JOIN products p ON p.id = t.product_id" +
@@ -68,6 +109,12 @@ public interface UserRepository extends JpaRepository<User, String> {
             "       AND p.type = :productType", nativeQuery = true)
     Long findUsersThenTopupSGT(@Param("userId") String userId, @Param("productType") String productType);
 
+    /**
+     * Метод проверяющий активное использование продукта определенного типа. Что колличество транзакций пополнения более 10
+     * @param userId id пользователя
+     * @param productType тип продукта
+     * @return сумма пополнений по продукту
+     */
     @Query(value = "SELECT EXISTS(" +
             "        SELECT FROM transactions t" +
             "        JOIN products p ON p.id = t.product_id" +
@@ -77,6 +124,11 @@ public interface UserRepository extends JpaRepository<User, String> {
             "        HAVING COUNT(*) > 10 LIMIT 1)", nativeQuery = true)
     boolean findUsersThenActiveUserOf(@Param("userId") String userId, @Param("productType") String productType);
 
+    /**
+     * Метод поиска данных о пользователе по логину пользователя
+     * @param username логин пользователя
+     * @return объект пользователя со всеми имеющимися данными о нем
+     */
     Optional<User> findUserByUsername(String username);
 
 }

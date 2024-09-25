@@ -8,9 +8,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Утилитарный класс с методами валидации и парсинга запросов из правил
+ * @author Daniil Topchiy & Ivan Kovalev
+ * @version 1.0
+ */
 @UtilityClass
 public class RuleStringParserUtils {
 
+    /**
+     * Метод проверки запроса на соответствие заданной формы "text:text%text:text"
+     * @param request строка с запросом
+     * @return true или false
+     */
     public boolean isRequestValid(String request) {
         if (!request.contains("%") && !request.contains(":")) {
             return false;
@@ -19,6 +29,12 @@ public class RuleStringParserUtils {
         return true;
     }
 
+    /**
+     * Метод создания списка правил из запроса для проверки пользователя
+     * @param ruleString запрос с правилами
+     * @return коллекция правил
+     * @throws IllegalArgumentException запрос не корректный
+     */
     public List<QueryEntity> convertRuleStringToQueryEntitesList(String ruleString) throws IllegalArgumentException {
         String[] rules = ruleString.split("%");
         List<QueryEntity> queryEntities = new ArrayList<>();
@@ -32,6 +48,12 @@ public class RuleStringParserUtils {
         return queryEntities;
     }
 
+    /**
+     * Метод проверки правил на наличие таковых в заданных константах объекта Queries
+     * @param ruleName название правила
+     * @param arguments аргументы правила
+     * @return true или false
+     */
     public boolean validateArguments(Queries ruleName, String[] arguments) {
         switch (ruleName) {
             case USEROF -> userOfArgumentsValidate(arguments);
@@ -45,6 +67,11 @@ public class RuleStringParserUtils {
         return true;
     }
 
+    /**
+     * Метод проверки колличества аргументов для правила
+     * @param arguments аргументы
+     * @throws IllegalArgumentException число передаваемых аргументов не соответствует правилу
+     */
     public void userOfArgumentsValidate(String[] arguments) throws IllegalArgumentException {
         if (Arrays.stream(arguments).count() == 1) {
         } else {
@@ -52,6 +79,11 @@ public class RuleStringParserUtils {
         }
     }
 
+    /**
+     * Метод проверки колличества аргументов для правила
+     * @param arguments аргументы
+     * @throws IllegalArgumentException число передаваемых аргументов не соответствует правилу
+     */
     public void notUserOfArgumentsValidate(String[] arguments) throws IllegalArgumentException {
         if (Arrays.stream(arguments).count() == 1) {
         } else {
@@ -59,6 +91,11 @@ public class RuleStringParserUtils {
         }
     }
 
+    /**
+     * Метод проверки колличества аргументов для правила
+     * @param arguments аргументы
+     * @throws IllegalArgumentException число передаваемых аргументов не соответствует правилу
+     */
     public void totupArgumentsValidate(String[] arguments) throws IllegalArgumentException, NumberFormatException {
         if (Arrays.stream(arguments).count() == 2) {
             try {
@@ -71,6 +108,11 @@ public class RuleStringParserUtils {
         }
     }
 
+    /**
+     * Метод проверки колличества аргументов для правила
+     * @param arguments аргументы
+     * @throws IllegalArgumentException число передаваемых аргументов не соответствует правилу
+     */
     public void topUpGTSpendValidate(String[] arguments) throws IllegalArgumentException {
         if (Arrays.stream(arguments).count() == 1) {
         } else {
@@ -78,6 +120,11 @@ public class RuleStringParserUtils {
         }
     }
 
+    /**
+     * Метод проверки колличества аргументов для правила
+     * @param arguments аргументы
+     * @throws IllegalArgumentException число передаваемых аргументов не соответствует правилу
+     */
     public void spendSGTArgumentsValidate(String[] arguments) throws IllegalArgumentException {
         if (Arrays.stream(arguments).count() == 1) {
             try {
@@ -90,6 +137,11 @@ public class RuleStringParserUtils {
         }
     }
 
+    /**
+     * Метод проверки колличества аргументов для правила
+     * @param arguments аргументы
+     * @throws IllegalArgumentException число передаваемых аргументов не соответствует правилу
+     */
     public void topupSGTArgumentsValidate(String[] arguments) throws IllegalArgumentException {
         if (Arrays.stream(arguments).count() == 1) {
             try {
@@ -102,6 +154,11 @@ public class RuleStringParserUtils {
         }
     }
 
+    /**
+     * Метод проверки колличества аргументов для правила
+     * @param arguments аргументы
+     * @throws IllegalArgumentException число передаваемых аргументов не соответствует правилу
+     */
     public void activeUserOfArgumentsValidate(String[] arguments) throws IllegalArgumentException {
         if (Arrays.stream(arguments).count() == 1) {
         } else {
