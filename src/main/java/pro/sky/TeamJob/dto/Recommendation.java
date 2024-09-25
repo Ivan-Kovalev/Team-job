@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Класс описывающий рекомендации для передачи пользователю
  * @author Daniil Topchiy & Ivan Kovalev
  * @version 1.0
  */
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -28,4 +31,5 @@ public class Recommendation {
         return "Рекомендация: " + name + "\n"
                 + text;
     }
+
 }

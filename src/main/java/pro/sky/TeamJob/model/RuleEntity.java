@@ -1,9 +1,7 @@
 package pro.sky.TeamJob.model;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Класс описывающий сущность правила
@@ -15,6 +13,8 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(exclude = {"description", "rule", "name"})
 @Table(name = "rule_entity")
+@AllArgsConstructor
+@NoArgsConstructor
 public class RuleEntity {
 
     /** Id */

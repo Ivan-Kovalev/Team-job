@@ -22,10 +22,10 @@ public class RuleStringParserUtils {
      * @return true или false
      */
     public boolean isRequestValid(String request) {
-        if (!request.contains("%") || !request.contains(":")) {
+        if (!request.contains("%") && !request.contains(":")) {
             return false;
         }
-        List<QueryEntity> queryEntities = convertRuleStringToQueryEntitesList(request);
+        convertRuleStringToQueryEntitesList(request);
         return true;
     }
 
@@ -130,7 +130,7 @@ public class RuleStringParserUtils {
             try {
                 Long.parseLong(arguments[0]);
             } catch (NumberFormatException e) {
-                throw new NumberFormatException("Ошибка! Второй переданный аргумент для правила SPENDSGT должен быть числом");
+                throw new NumberFormatException("Ошибка! Переданный аргумент для правила SPENDSGT должен быть числом");
             }
         } else {
             throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила SPENDSGT должно равняться 1");
@@ -147,7 +147,7 @@ public class RuleStringParserUtils {
             try {
                 Long.parseLong(arguments[0]);
             } catch (NumberFormatException e) {
-                throw new NumberFormatException("Ошибка! Второй переданный аргумент для правила TOPUPSGT должен быть числом");
+                throw new NumberFormatException("Ошибка! Переданный аргумент для правила TOPUPSGT должен быть числом");
             }
         } else {
             throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила TOPUPSGT должно равняться 1");

@@ -6,10 +6,6 @@ package pro.sky.TeamJob.exception;
  * @version 1.0
  */
 public class UsernameNotExistException extends RuntimeException {
-    public UsernameNotExistException() {
-        super();
-    }
-
     public UsernameNotExistException(String message) {
         super(message);
     }
