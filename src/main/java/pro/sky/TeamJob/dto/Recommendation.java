@@ -1,18 +1,17 @@
 package pro.sky.TeamJob.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * Класс описывающий рекомендации для передачи пользователю
  * @author Daniil Topchiy & Ivan Kovalev
  * @version 1.0
  */
-
+@Schema(description = "Сущность рекомендации для пользователя")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -20,9 +19,11 @@ import java.util.Objects;
 public class Recommendation {
 
     /** Имя продукта */
+    @Schema(description = "Имя продукта")
     private String name;
 
     /** Текст рекомендации продукта */
+    @Schema(description = "Текст рекомендации")
     private String text;
 
     /** Метод преобразования рекомендации в строковый вид для передачи пользователю */

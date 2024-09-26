@@ -1,5 +1,8 @@
 package pro.sky.TeamJob.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,7 @@ import pro.sky.TeamJob.service.RuleService;
  * @author Daniil Topchiy & Ivan Kovalev
  * @version 1.0
  */
+@Tag(name="Контроллер правил", description="Занимается созданием, получением и удалением правил")
 @RestController
 @RequestMapping("/api/v1/rule/")
 @RequiredArgsConstructor
@@ -25,8 +29,12 @@ public class RuleController {
      * @param rule объект правила с запросом
      * @return статус выполнения метода
      */
+    @Operation(
+            summary = "Добавить правило",
+            description = "Позволяет добавить правило и рекомендованный продукт по нему"
+    )
     @PostMapping
-    public ResponseEntity<?> addRecommendation(@RequestBody RuleEntity rule) {
+    public ResponseEntity<?> addRecommendation(@RequestBody @Parameter(description = "Правило в формате JSON") RuleEntity rule) {
         rule.setRule(rule.getRule().toUpperCase());
         ruleService.createRule(rule);
         return ResponseEntity.ok().body("Новый набор правил для рекоммендации был добавлен.");
