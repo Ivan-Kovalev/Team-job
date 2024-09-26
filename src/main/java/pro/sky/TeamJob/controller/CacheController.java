@@ -16,7 +16,7 @@ import pro.sky.TeamJob.service.RecommendationService;
  */
 @Tag(name="Контроллер кэша", description="Осуществляет все операции связанные с кэшем")
 @RestController
-@RequestMapping("/management/")
+@RequestMapping("/cache/")
 @RequiredArgsConstructor
 public class CacheController {
 
@@ -28,7 +28,7 @@ public class CacheController {
             summary = "Очищение кэша",
             description = "Позволяет очистить кэш приложения"
     )
-    @GetMapping("clear-caches/getRecommendation")
+    @GetMapping("clear/getRecommendation")
     public ResponseEntity<String> clearCacheOfRecommendation() {
         recommendationService.clearCacheOfRecommendation();
         return ResponseEntity.ok().body("Кэш очищен");
