@@ -1,28 +1,28 @@
-databaseChangeLog:
-  - logicalFilePath: db/changelog/migrations/changelog-0.6-importToUsersToProduct.yaml
-  - changeSet:
-      id: 009_add_rule_entity
-      author: ikovalev
-      changes:
-        - createTable:
-            tableName: rule_entity
-            columns:
-              - column:
-                  name: id
-                  type: bigint
-                  autoIncrement: true
-                  startWith: 1
-                  constraints:
-                      primaryKey: true
-                      nullable: false
-              - column:
-                  name: rule
-                  type: varchar(255)
-              - column:
-                  name: name
-                  type: varchar(255)
-              - column:
-                  name: description
-                  type: text
+  databaseChangeLog:
+    - logicalFilePath: db/changelog/migrations/changelog-0.9-addRuleEntity.yaml
+    - changeSet:
+        id: 009_add_rule_entity
+        author: ikovalev
+        changes:
+          - createTable:
+              tableName: rule_entity
+              columns:
+                - column:
+                    name: id
+                    type: bigint
+                    autoIncrement: true
+                    startWith: 1
+                    constraints:
+                        primaryKey: true
+                        nullable: false
+                - column:
+                    name: rule
+                    type: varchar
+                - column:
+                    name: name
+                    type: varchar
+                - column:
+                    name: description
+                    type: text
 
 

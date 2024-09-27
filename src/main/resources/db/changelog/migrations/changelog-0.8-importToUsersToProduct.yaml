@@ -1,7 +1,7 @@
 databaseChangeLog:
-  - logicalFilePath: db/changelog/migrations/changelog-0.6-importToUsersToProduct.yaml
+  - logicalFilePath: db/changelog/migrations/changelog-0.8-importToUsersToProduct.yaml
   - changeSet:
-      id: 006_import_to_users_to_product
+      id: 008_import_to_users_to_product
       author: ikovalev
       changes:
         - loadData:

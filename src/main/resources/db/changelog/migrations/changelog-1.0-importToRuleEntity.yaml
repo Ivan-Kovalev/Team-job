@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/migrations/changelog-1.0-importToRuleEntity.yaml
+  - changeSet:
+      id: 010_import_to_rule_entity
+      author: ikovalev
+      changes:
+          - sqlFile:
+              encoding: utf8
+              path: "db/changelog/sql/test.sql"
+              relativeToChangelogFile: false
+
+

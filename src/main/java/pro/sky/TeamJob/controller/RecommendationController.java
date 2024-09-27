@@ -20,7 +20,7 @@ import java.util.UUID;
  */
 @Tag(name="Контроллер рекомендаций", description="Предоставляет рекомендации для пользователей")
 @RestController
-@RequestMapping("/api/v1/recommendation/")
+@RequestMapping("/recommendation/")
 @RequiredArgsConstructor
 public class RecommendationController {
 

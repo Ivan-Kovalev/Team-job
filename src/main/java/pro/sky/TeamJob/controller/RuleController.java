@@ -17,12 +17,14 @@ import pro.sky.TeamJob.service.RuleService;
  */
 @Tag(name="Контроллер правил", description="Занимается созданием, получением и удалением правил")
 @RestController
-@RequestMapping("/api/v1/rule/")
+@RequestMapping("/rule/")
 @RequiredArgsConstructor
 public class RuleController {
 
     /** Сервис с CRUD операциями по объектам правил */
     private final RuleService ruleService;
+
+    private final CacheController cacheController;
 
     /**
      * Метод добавления правил игнорируя регистр
@@ -37,6 +39,7 @@ public class RuleController {
     public ResponseEntity<?> addRecommendation(@RequestBody @Parameter(description = "Правило в формате JSON") RuleEntity rule) {
         rule.setRule(rule.getRule().toUpperCase());
         ruleService.createRule(rule);
+        cacheController.clearCacheOfRecommendation();
         return ResponseEntity.ok().body("Новый набор правил для рекоммендации был добавлен.");
     }
 

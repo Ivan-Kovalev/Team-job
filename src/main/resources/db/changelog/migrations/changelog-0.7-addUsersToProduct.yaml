@@ -1,7 +1,7 @@
 databaseChangeLog:
-  - logicalFilePath: db/changelog/migrations/changelog-0.5-addUsersToProduct.yaml
+  - logicalFilePath: db/changelog/migrations/changelog-0.7-addUsersToProduct.yaml
   - changeSet:
-      id: 005_add_users_to_product
+      id: 007_add_users_to_product
       author: ikovalev
       changes:
         - createTable:

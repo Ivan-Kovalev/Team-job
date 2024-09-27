@@ -17,7 +17,7 @@ import pro.sky.TeamJob.dto.ProjectInfo;
  */
 @Tag(name="Контроллер информации о проекте", description="Предоставляет информацию о поекте")
 @RestController
-@RequestMapping("/api/v1/management/")
+@RequestMapping("/management/")
 @RequiredArgsConstructor
 public class InformController {
 

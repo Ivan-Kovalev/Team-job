@@ -60,7 +60,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     boolean findTopup(@Param("userId") String userId, @Param("productType") String productType, @Param("queryAmount") Long queryAmount);
 
     /**
-     * Метод провряющий что сумма пополнений по продукту больше суммы трат по продукту определенного типа
+     * Метод проверяющий что сумма пополнений по продукту больше суммы трат по продукту определенного типа
      * @param userId id пользователя
      * @param productType тип продукта
      * @return true или false
@@ -80,6 +80,22 @@ public interface UserRepository extends JpaRepository<User, String> {
             "                    AND t.user_id = :userId)" +
             "        LIMIT 1)", nativeQuery = true)
     boolean findUsersThenTopUpGTSpend(@Param("userId") String userId, @Param("productType") String productType);
+
+    @Query(value = "SELECT EXISTS(" +
+            "        SELECT 1" +
+            "        FROM products p" +
+            "        WHERE p.type = :productType AND (" +
+            "                  SELECT SUM(CASE WHEN t.type = 'DEPOSIT' THEN t.amount ELSE 0 END)" +
+            "                  FROM transactions t" +
+            "                  WHERE t.product_id = p.id" +
+            "                    AND t.user_id = :userId" +
+            "              ) < (" +
+            "                  SELECT SUM(CASE WHEN t.type = 'WITHDRAWAL' THEN t.amount ELSE 0 END)" +
+            "                  FROM transactions t" +
+            "                  WHERE t.product_id = p.id" +
+            "                    AND t.user_id = :userId)" +
+            "        LIMIT 1)", nativeQuery = true)
+    boolean findUsersThenTopUpGTSpendLess(@Param("userId") String userId, @Param("productType") String productType);
 
     /**
      * Метод возвращающий сумму списаний по продукту определенного типа
@@ -123,6 +139,22 @@ public interface UserRepository extends JpaRepository<User, String> {
             "        GROUP BY p.id, p.name" +
             "        HAVING COUNT(*) > 10 LIMIT 1)", nativeQuery = true)
     boolean findUsersThenActiveUserOf(@Param("userId") String userId, @Param("productType") String productType);
+
+    @Query(value = "SELECT CASE WHEN COUNT(*) >= 1 THEN true ELSE false END AS has_eligible_user " +
+            "FROM (SELECT u.id AS user_id, " +
+            "COUNT(t.id) AS topup_count, " +
+            "SUM(t.amount) AS total_topup_amount " +
+            "FROM users_to_product utp " +
+            "JOIN transactions t ON utp.user_id = t.user_id AND utp.product_id = t.product_id " +
+            "JOIN userbase u ON t.user_id = u.id " +
+            "JOIN products p ON t.product_id = p.id " +
+            "WHERE p.type = :productType " +
+            "AND t.amount > :queryAmount " +
+            "AND u.id = :userId " +
+            "GROUP BY u.id " +
+            "HAVING COUNT(t.id) >= :debitNumber " +
+            "AND SUM(t.amount) >= 50000) AS subquery", nativeQuery = true)
+    boolean findUsersThenActiveUserOfAndPayable(@Param("userId") String userId, @Param("productType") String productType, @Param("queryAmount") Long queryAmount, @Param("debitNumber") Long debitNumber);
 
     /**
      * Метод поиска данных о пользователе по логину пользователя

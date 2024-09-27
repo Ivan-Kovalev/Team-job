@@ -60,9 +60,11 @@ public class RuleStringParserUtils {
             case NOTUSEROF -> notUserOfArgumentsValidate(arguments);
             case TOPUP -> totupArgumentsValidate(arguments);
             case TOPUPGTSPEND -> topUpGTSpendValidate(arguments);
+            case TOPUPGTSPENDLESS -> topUpGTSpendLessValidate(arguments);
             case SPENDSGT -> spendSGTArgumentsValidate(arguments);
             case TOPUPSGT -> topupSGTArgumentsValidate(arguments);
             case ACTIVEUSEROF -> activeUserOfArgumentsValidate(arguments);
+            case ACTIVEUSERANDPAYABLE -> activeUserAndPayableOfArgumentsValidate(arguments);
         }
         return true;
     }
@@ -125,6 +127,18 @@ public class RuleStringParserUtils {
      * @param arguments аргументы
      * @throws IllegalArgumentException число передаваемых аргументов не соответствует правилу
      */
+    public void topUpGTSpendLessValidate(String[] arguments) throws IllegalArgumentException {
+        if (Arrays.stream(arguments).count() == 1) {
+        } else {
+            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила TOPUPGTSPENDLESS должно равняться 1");
+        }
+    }
+
+    /**
+     * Метод проверки колличества аргументов для правила
+     * @param arguments аргументы
+     * @throws IllegalArgumentException число передаваемых аргументов не соответствует правилу
+     */
     public void spendSGTArgumentsValidate(String[] arguments) throws IllegalArgumentException {
         if (Arrays.stream(arguments).count() == 1) {
             try {
@@ -163,6 +177,24 @@ public class RuleStringParserUtils {
         if (Arrays.stream(arguments).count() == 1) {
         } else {
             throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила ACTIVEUSEROF должно равняться 1");
+        }
+    }
+
+    /**
+     * Метод проверки колличества аргументов для правила
+     * @param arguments аргументы
+     * @throws IllegalArgumentException число передаваемых аргументов не соответствует правилу
+     */
+    public void activeUserAndPayableOfArgumentsValidate(String[] arguments) throws IllegalArgumentException {
+        if (Arrays.stream(arguments).count() == 3) {
+            try {
+                Long.parseLong(arguments[1]);
+                Long.parseLong(arguments[2]);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException("Ошибка! Второй и третий переданный аргумент для правила TOTUP должен быть числом");
+            }
+        } else {
+            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила TOTUP должно равняться 3");
         }
     }
 
