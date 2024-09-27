@@ -6,7 +6,7 @@ databaseChangeLog:
       changes:
           - sqlFile:
               encoding: utf8
-              path: "db/changelog/sql/test.sql"
+              path: "db/changelog/sql/InsertIntoRuleEntity.sql"
               relativeToChangelogFile: false
 
 

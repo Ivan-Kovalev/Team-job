@@ -43,15 +43,15 @@ public class RuleServiceImpl implements RuleService {
         boolean isCompileAllRequires = true;
         for (QueryEntity queryEntity: queryEntities) {
             switch (queryEntity.getQuery()) {
-                case TOPUP -> isCompileAllRequires = userRepository.findTopup(userId, queryEntity.getArguments()[0], Long.getLong(queryEntity.getArguments()[1]));
+                case TOPUP -> isCompileAllRequires = userRepository.findTopup(userId, queryEntity.getArguments()[0], Long.parseLong(queryEntity.getArguments()[1]));
                 case USEROF -> isCompileAllRequires = userRepository.findUserOf(userId, queryEntity.getArguments()[0]);
                 case NOTUSEROF -> isCompileAllRequires = userRepository.findNotUserOf(userId, queryEntity.getArguments()[0]);
                 case TOPUPGTSPEND -> isCompileAllRequires = userRepository.findUsersThenTopUpGTSpend(userId, queryEntity.getArguments()[0]);
                 case TOPUPGTSPENDLESS -> isCompileAllRequires = userRepository.findUsersThenTopUpGTSpendLess(userId, queryEntity.getArguments()[0]);
-                case SPENDSGT -> isCompileAllRequires = userRepository.findUsersThenSpendSGT(userId, queryEntity.getArguments()[0]) > Long.getLong(queryEntity.getArguments()[1]);
-                case TOPUPSGT -> isCompileAllRequires = userRepository.findUsersThenTopupSGT(userId, queryEntity.getArguments()[0]) > Long.getLong(queryEntity.getArguments()[1]);
+                case SPENDSGT -> isCompileAllRequires = userRepository.findUsersThenSpendSGT(userId, queryEntity.getArguments()[0]) > Long.parseLong(queryEntity.getArguments()[1]);
+                case TOPUPSGT -> isCompileAllRequires = userRepository.findUsersThenTopupSGT(userId, queryEntity.getArguments()[0]) > Long.parseLong(queryEntity.getArguments()[1]);
                 case ACTIVEUSEROF -> isCompileAllRequires = userRepository.findUsersThenActiveUserOf(userId, queryEntity.getArguments()[0]);
-                case ACTIVEUSERANDPAYABLE -> isCompileAllRequires = userRepository.findUsersThenActiveUserOfAndPayable(userId, queryEntity.getArguments()[0], Long.getLong(queryEntity.getArguments()[1]), Long.getLong(queryEntity.getArguments()[2]));
+                case ACTIVEUSERANDPAYABLE -> isCompileAllRequires = userRepository.findUsersThenActiveUserOfAndPayable(userId, queryEntity.getArguments()[0], Long.parseLong(queryEntity.getArguments()[1]), Long.parseLong(queryEntity.getArguments()[2]));
             }
             if (!isCompileAllRequires) {
                 break;

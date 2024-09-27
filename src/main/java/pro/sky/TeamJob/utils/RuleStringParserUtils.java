@@ -140,14 +140,14 @@ public class RuleStringParserUtils {
      * @throws IllegalArgumentException число передаваемых аргументов не соответствует правилу
      */
     public void spendSGTArgumentsValidate(String[] arguments) throws IllegalArgumentException {
-        if (Arrays.stream(arguments).count() == 1) {
+        if (Arrays.stream(arguments).count() == 2) {
             try {
-                Long.parseLong(arguments[0]);
+                Long.parseLong(arguments[1]);
             } catch (NumberFormatException e) {
                 throw new NumberFormatException("Ошибка! Переданный аргумент для правила SPENDSGT должен быть числом");
             }
         } else {
-            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила SPENDSGT должно равняться 1");
+            throw new IllegalArgumentException("Ошибка! Число передаваемых аргумента для правила SPENDSGT должно равняться 2");
         }
     }
 
