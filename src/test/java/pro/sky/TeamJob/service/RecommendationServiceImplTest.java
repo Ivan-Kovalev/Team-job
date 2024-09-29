@@ -49,7 +49,7 @@ public class RecommendationServiceImplTest {
 
     @BeforeEach
     public void reposInit() {
-        recommendationService = new RecommendationServiceImpl(ruleEntitiesRepository, ruleService, userRepository, cacheManager);
+        recommendationService = new RecommendationServiceImpl(ruleEntitiesRepository, ruleService, userRepository);
         users = new ArrayList<>();
         ruleEntities = new ArrayList<>();
         recommendations = new ArrayList<>();

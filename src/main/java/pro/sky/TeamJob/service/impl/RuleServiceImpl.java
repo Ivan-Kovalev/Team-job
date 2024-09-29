@@ -9,6 +9,7 @@ import pro.sky.TeamJob.model.RuleEntity;
 import pro.sky.TeamJob.model.User;
 import pro.sky.TeamJob.repository.RuleEntitiesRepository;
 import pro.sky.TeamJob.repository.UserRepository;
+import pro.sky.TeamJob.service.CacheService;
 import pro.sky.TeamJob.service.RuleService;
 import pro.sky.TeamJob.utils.RuleStringParserUtils;
 
@@ -29,6 +30,9 @@ public class RuleServiceImpl implements RuleService {
 
     /** Репозиторий пользователей */
     private final UserRepository userRepository;
+
+    /** Работа с кэшем */
+    private final CacheService cacheService;
 
     /**
      * Метод проверки пользователя на соответствие условиям из заданных правил
@@ -68,5 +72,6 @@ public class RuleServiceImpl implements RuleService {
     public void createRule(RuleEntity rule) {
         RuleStringParserUtils.isRequestValid(rule.getRule());
         ruleEntitiesRepository.save(rule);
+        cacheService.clearCacheOfRecommendation();
     }
 }

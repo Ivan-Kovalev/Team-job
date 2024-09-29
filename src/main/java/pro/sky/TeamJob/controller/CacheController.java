@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pro.sky.TeamJob.service.CacheService;
 import pro.sky.TeamJob.service.RecommendationService;
 
 /**
@@ -21,7 +22,7 @@ import pro.sky.TeamJob.service.RecommendationService;
 public class CacheController {
 
     /** Сервис рекомендаций */
-    private final RecommendationService recommendationService;
+    private final CacheService cacheService;
 
     /** Метод очищения кэша рекомендаций */
     @Operation(
@@ -30,7 +31,7 @@ public class CacheController {
     )
     @GetMapping("clear/getRecommendation")
     public ResponseEntity<String> clearCacheOfRecommendation() {
-        recommendationService.clearCacheOfRecommendation();
+        cacheService.clearCacheOfRecommendation();
         return ResponseEntity.ok().body("Кэш очищен");
     }
 }

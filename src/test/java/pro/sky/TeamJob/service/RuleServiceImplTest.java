@@ -10,6 +10,7 @@ import pro.sky.TeamJob.model.RuleEntity;
 import pro.sky.TeamJob.model.User;
 import pro.sky.TeamJob.repository.RuleEntitiesRepository;
 import pro.sky.TeamJob.repository.UserRepository;
+import pro.sky.TeamJob.service.impl.CacheServiceImpl;
 import pro.sky.TeamJob.service.impl.RuleServiceImpl;
 
 import java.time.LocalDateTime;
@@ -32,11 +33,14 @@ public class RuleServiceImplTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private CacheServiceImpl cacheService;
+
     private RuleServiceImpl ruleService;
 
     @BeforeEach
     public void reposInit() {
-        ruleService = new RuleServiceImpl(ruleEntitiesRepository, userRepository);
+        ruleService = new RuleServiceImpl(ruleEntitiesRepository, userRepository, cacheService);
         users = new ArrayList<>();
         ruleEntities = new ArrayList<>();
 

@@ -24,8 +24,6 @@ public class RuleController {
     /** Сервис с CRUD операциями по объектам правил */
     private final RuleService ruleService;
 
-    private final CacheController cacheController;
-
     /**
      * Метод добавления правил игнорируя регистр
      * @param rule объект правила с запросом
@@ -39,7 +37,6 @@ public class RuleController {
     public ResponseEntity<?> addRecommendation(@RequestBody @Parameter(description = "Правило в формате JSON") RuleEntity rule) {
         rule.setRule(rule.getRule().toUpperCase());
         ruleService.createRule(rule);
-        cacheController.clearCacheOfRecommendation();
         return ResponseEntity.ok().body("Новый набор правил для рекоммендации был добавлен.");
     }
 

@@ -35,9 +35,6 @@ public class RecommendationServiceImpl implements RecommendationService {
     /** Репозиторий пользователей с методами проверки соответствия правилам */
     private final UserRepository userRepository;
 
-    /** Класс по работе с кэшем */
-    private final CacheManager cacheManager;
-
     /**
      * Метод формирования рекомендаций для пользователя
      * @param userId id пользователя
@@ -85,14 +82,6 @@ public class RecommendationServiceImpl implements RecommendationService {
     public String getFirstnameAndLastnameByUsername(String username) {
         User user = findUserIdByUsername(username);
         return user.getFirstname() + " " + user.getLastname();
-    }
-
-    /**
-     * Метод очищения кэша
-     */
-    @Override
-    public void clearCacheOfRecommendation() {
-        cacheManager.getCache("getRecommendation").clear();
     }
 
 }
