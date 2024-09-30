@@ -26,7 +26,7 @@ public class RuleStringParserUtilsTest {
         Assertions.assertEquals("Ошибка! Число передаваемых аргумента для правила TOPUPGTSPEND должно равняться 1", illegalArgumentExceptionTopupgtspendTooLow.getMessage());
 
         IllegalArgumentException illegalArgumentExceptionSpendsgtTooLow = Assertions.assertThrows(IllegalArgumentException.class, () -> RuleStringParserUtils.isRequestValid("SPENDSGT:"));
-        Assertions.assertEquals("Ошибка! Число передаваемых аргумента для правила SPENDSGT должно равняться 1", illegalArgumentExceptionSpendsgtTooLow.getMessage());
+        Assertions.assertEquals("Ошибка! Число передаваемых аргумента для правила SPENDSGT должно равняться 2", illegalArgumentExceptionSpendsgtTooLow.getMessage());
 
         IllegalArgumentException illegalArgumentExceptionActiveUserOfTooLow = Assertions.assertThrows(IllegalArgumentException.class, () -> RuleStringParserUtils.isRequestValid("ACTIVEUSEROF:"));
         Assertions.assertEquals("Ошибка! Число передаваемых аргумента для правила ACTIVEUSEROF должно равняться 1", illegalArgumentExceptionActiveUserOfTooLow.getMessage());
@@ -47,7 +47,7 @@ public class RuleStringParserUtilsTest {
         Assertions.assertEquals("Ошибка! Число передаваемых аргумента для правила TOPUPGTSPEND должно равняться 1", illegalArgumentExceptionTopupgtspendTooMuch.getMessage());
 
         IllegalArgumentException illegalArgumentExceptionSpendsgtTooMuch = Assertions.assertThrows(IllegalArgumentException.class, () -> RuleStringParserUtils.isRequestValid("SPENDSGT:Не:Валидный:Запрос"));
-        Assertions.assertEquals("Ошибка! Число передаваемых аргумента для правила SPENDSGT должно равняться 1", illegalArgumentExceptionSpendsgtTooMuch.getMessage());
+        Assertions.assertEquals("Ошибка! Число передаваемых аргумента для правила SPENDSGT должно равняться 2", illegalArgumentExceptionSpendsgtTooMuch.getMessage());
 
         IllegalArgumentException illegalArgumentExceptionActiveUserOfTooMuch = Assertions.assertThrows(IllegalArgumentException.class, () -> RuleStringParserUtils.isRequestValid("ACTIVEUSEROF:Не:Валидный:Запрос"));
         Assertions.assertEquals("Ошибка! Число передаваемых аргумента для правила ACTIVEUSEROF должно равняться 1", illegalArgumentExceptionActiveUserOfTooMuch.getMessage());
@@ -58,7 +58,7 @@ public class RuleStringParserUtilsTest {
         IllegalArgumentException illegalArgumentExceptioTopupTooMuch = Assertions.assertThrows(IllegalArgumentException.class, () -> RuleStringParserUtils.isRequestValid("TOPUP:Не:число"));
         Assertions.assertEquals("Ошибка! Второй переданный аргумент для правила TOTUP должен быть числом", illegalArgumentExceptioTopupTooMuch.getMessage());
 
-        IllegalArgumentException illegalArgumentExceptionSpendsgtTooMuch = Assertions.assertThrows(IllegalArgumentException.class, () -> RuleStringParserUtils.isRequestValid("SPENDSGT:НеЧисло"));
+        IllegalArgumentException illegalArgumentExceptionSpendsgtTooMuch = Assertions.assertThrows(IllegalArgumentException.class, () -> RuleStringParserUtils.isRequestValid("SPENDSGT:НеЧисло:ИЭтоНеЧисло"));
         Assertions.assertEquals("Ошибка! Переданный аргумент для правила SPENDSGT должен быть числом", illegalArgumentExceptionSpendsgtTooMuch.getMessage());
 
         IllegalArgumentException illegalArgumentExceptionTopupsgtTooMuch = Assertions.assertThrows(IllegalArgumentException.class, () -> RuleStringParserUtils.isRequestValid("TOPUPSGT:НеЧисло"));
